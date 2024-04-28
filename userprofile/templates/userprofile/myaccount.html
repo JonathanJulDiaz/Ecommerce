@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Mi Cuenta
+{% endblock %}
+
+{% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="mt-4 text-tail-800 font-bold">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="mx-4 my-2">
+    <h1 class="text-3xl mb-2">Mi cuenta</h1>
+
+    <div>
+      <h2 class="text-xl my-4">Usuario: {{ user.username }}</h2>
+    {% if user.get_full_name %}
+      <h2 class="text-xl my-4">Nombre: {{ user.get_full_name }}</h2>
+    {% endif %}
+  
+    <h2 class="text-xl my-4">
+      Correo:{% if user.email %}
+        {{ user.email }}
+      {% else %}
+        No tiene
+      {% endif %}
+    </h2>
+    </div>
+  
+    <div class="flex items-center mt-4">
+      <a href="{% url 'edit-account' %}" class="inline-block mr-4 p-3 bg-gray-600 text-white hover:bg-gray-800 active:bg-gray-900 rounded-lg">Editar cuenta</a>
+
+      <a href="{% url 'change-password' %}" class="inline-block mr-4 p-3 bg-gray-600 text-white hover:bg-gray-800 active:bg-gray-900 rounded-lg">Cambiar contraseña</a>
+    </div>
+
+  <hr class="border border-gray-600 my-5">
+
+  <h1 class="text-3xl mb-2">Información de mi perfil</h1>
+
+  <h2 class="text-xl my-4">
+    Imagen:{% if user.userprofile.imagen %}
+      <img src="{{ user.userprofile.imagen.url }}" alt="Imagen de {{ user.username }}" class="w-44 h-44 rounded-full object-cover" />
+    {% else %}
+      No tiene
+    {% endif %}
+  </h2>
+
+  <h2 class="text-xl my-4">Numero: +57 {{ user.userprofile.numero }}</h2>
+
+  <h2 class="text-xl my-4">
+    Instagram:{% if user.userprofile.instagram %}
+      @{{ user.userprofile.instagram }}
+    {% else %}
+      No tiene
+    {% endif %}
+  </h2>
+
+  <h2 class="text-xl my-4">Edad: {{user.userprofile.edad}}</h2>
+
+  {% if user.userprofile.about_me %}
+  <h2 class="text-xl my-4">Sobre mi: <br> {{user.userprofile.about_me}}</h2>
+  {% endif %}
+
+  <h2 class="text-xl my-4">Institución universitaria: {{ user.userprofile.get_universidad_display }}</h2>
+
+  <div class="flex items-center mt-6">
+    <a href="{% url 'edit-profile' user.userprofile.id %}" class="inline-block p-3 bg-gray-600 text-white hover:bg-gray-800 active:bg-gray-900 rounded-lg">Editar perfil</a>
+  </div>
+  </div>
+{% endblock %}

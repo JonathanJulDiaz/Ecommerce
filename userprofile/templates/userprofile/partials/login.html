@@ -1,0 +1,29 @@
+{% block content %}
+<form method="post" action="." class="bg-white rounded-md shadow-2xl border-2 border-gray-500 p-5 [&_.errorlist]:italic [&_.errorlist]:text-red-500 [&_.errorlist]:text-sm">
+  <h1 class="text-gray-800 font-bold text-2xl mb-1">¡Hola de nuevo!</h1>
+        <p class="text-sm font-normal text-gray-600 mb-8">Ingrese su usuario y contraseña</p>
+  {% csrf_token %}
+
+  {{ form.non_field_errors }}
+
+  <div class="mb-2">
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" class="text-gray-400"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>
+      <input id="{{ form.username.id_for_label }}" maxlength="100" class="pl-2 w-full outline-none border-1 rounded-lg border-black ml-2" type="text" name="{{ form.username.html_name }}" placeholder="Usuario" value="{{ form.username.value|default_if_none:'' }}" />
+    </div>
+  
+    {{ form.username.errors }}
+  </div>
+
+  <div class="mb-2">
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" /></svg>
+      <input class="pl-2 w-full outline-none border-1 rounded-lg border-black ml-2" type="password" name="{{ form.password.html_name }}" id="{{ form.password.id_for_label }}" placeholder="Contraseña" />
+    </div>
+  
+    {{ form.password.errors }}
+  </div>
+
+  <button type="submit" class="block w-full bg-gray-600 mt-5 py-2 rounded-2xl hover:bg-gray-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Ingresar</button>
+</form>
+{% endblock %}

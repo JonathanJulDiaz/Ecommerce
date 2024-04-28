@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  {{ subcategory.title }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-2xl ml-3 mb-2"><b>Subcategoria:</b> {{ subcategory.title }}</h1>
+
+  {% include 'core/filters.html' with request=request products=products only %}
+
+  {% include 'posts/partials/products.html' %}
+{% endblock %}

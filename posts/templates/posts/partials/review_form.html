@@ -1,0 +1,24 @@
+<form class="mx-10 bg-gray-700 p-3 rounded-lg mb-3" action="{% url 'add_review' product.id %}" method="post">
+
+    <h2 class="text-lg text-gray-400 mb-2">
+      Deja tu reseña
+    </h2>
+
+    {% csrf_token %}
+
+    {{ review_form.non_field_errors }}
+
+    <textarea class="p-2 w-full outline-none border-none rounded-lg" value="" maxlength="150" name="descripcion" cols="40" rows="10" placeholder="Danos tu opinión sobre esta publicación" required id="review_form.descripcion.id">
+    </textarea>
+
+
+    <!--
+      {{ review_form.descripcion|safe }}
+    -->
+    
+    {{ review_form.descripcion.errors }}
+
+    <div class="my-2">{{ review_form.estrellas }}</div>
+
+    <button class="p-2 bg-gray-200 rounded-2xl text-black font-bold hover:bg-gray-500 delay-50 duration-500" type="submit">Publicar reseña</button>
+</form>

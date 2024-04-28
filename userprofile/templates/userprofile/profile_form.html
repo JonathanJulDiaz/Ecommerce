@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="mt-4 text-tail-800 font-bold">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl mb-2">{{ title }}</h1>
+  </div>
+
+  <form action="." method="post" enctype="multipart/form-data" class="bg-white rounded-md shadow-2xl p-5 [&_.errorlist]:italic [&_.errorlist]:text-red-500 [&_.errorlist]:text-sm">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" class="text-gray-400"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>
+      <input id="{{ form.imagen.id_for_label }}" class="pl-2 w-full outline-none border-none" type="file" name="{{ form.imagen.html_name }}" value="{{ form.imagen.value|default_if_none:'' }}" />
+    </div>
+
+    {{ form.imagen.errors }}
+
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" class="text-gray-400"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>
+      <input id="{{ form.numero.id_for_label }}" maxlength="10" class="pl-2 w-full outline-none border-none" type="number" name="{{ form.numero.html_name }}" placeholder="Ingrese su número" value="{{ form.numero.value|default_if_none:'' }}" />
+    </div>
+
+    {{ form.numero.errors }}
+
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" class="text-gray-400"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>
+      <input id="{{ form.instagram.id_for_label }}" maxlength="15" class="pl-2 w-full outline-none border-none" type="text" name="{{ form.instagram.html_name }}" placeholder="Ingrese su instragram" value="{{ form.instagram.value|default_if_none:'' }}" />
+    </div>
+
+    {{ form.instagram.errors }}
+
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" class="text-gray-400"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>
+      <input id="{{ form.edad.id_for_label }}" maxlength="2" class="pl-2 w-full outline-none border-none" type="number" name="{{ form.edad.html_name }}" placeholder="Ingrese su edad" value="{{ form.edad.value|default_if_none:'' }}" />
+    </div>
+
+    {{ form.edad.errors }}
+
+    <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" class="text-gray-400"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>
+      <input id="{{ form.about_me.id_for_label }}" maxlength="150" class="pl-2 w-full outline-none border-none" type="text" name="{{ form.about_me.html_name }}" placeholder="Sobre mi" value="{{ form.about_me.value|default_if_none:'' }}" />
+    </div>
+
+    {{ form.about_me.errors }}
+
+    <div class="flex items-center">
+      <button class="py-3 px-6 bg-gray-500 text-white hover:bg-gray-700 active:bg-gray-900 rounded-lg" type="submit">Guardar cambios</button>
+
+      <a href="{% url 'my-account' %}" class="ml-10 inline-block py-3 px-6 bg-yellow-600 text-white hover:bg-yellow-800 active:bg-yellow-900 rounded-lg">Cancelar</a>
+    </div>
+  </form>
+{% endblock %}

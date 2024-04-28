@@ -1,0 +1,454 @@
+<div class="flex items-center justify-start px-2 z-20">
+  <button id="filter-button"
+    class="relative z-30 peer px-1 py-1 rounded-md bg-gray-500 hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-700 transition">
+    <span class="text-white flex items-center justify-between *:mx-1">
+      <p class="text-lg">Filtros</p>
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path fill="#FFFFFF" d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/>
+      </svg>
+    </span>
+  </button>
+
+  <div id="filter-menu"
+    class="hidden z-30 fixed top-0 -left-96 lg:left-0 h-screen w-9/12 lg:w-72 bg-white shadow-2xl peer-focus:left-0 transition ease-out delay-150 duration-500">
+    <nav role="navigation" class="p-6">
+      <div class="relative mt-5">
+        <h2 class="text-xl font-bold">Filtros</h2>
+      </div>
+
+      <div class="mt-2 -mx-4 relative overflow-y-scroll overflow-x-hidden h-[85vh]">
+        <ul class="*:pr-2">
+
+          <!--Por universidades-->
+          <li>
+            <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
+              <div>
+                <input id="input-universidad" class="mr-2" type="checkbox" onclick="checkAll(this, 'universidades')">
+                <label for="input-universidad" class="text-lg leading-5 text-black">
+                  Por universidades
+                </label>
+              </div>
+
+              <button onclick="showMenu1(true, 'drop1', 'filter1')"
+                class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
+                <svg id="drop1" class="transform" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </button>
+            </div>
+
+            <fieldset id="filter1" class="mb-1 *:mb-2 *:mx-6">
+              {% for uni in universities %}
+              <div class="flex items-center">
+                <input id="university-{{ forloop.counter0 }}" type="checkbox"
+                value="{{uni.0}}" data-filter="universidad" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                <label for="university-{{ forloop.counter0 }}" class="text-sm text-gray-900 ml-2 block">
+                  {{ uni.1 }}
+                </label>
+              </div>
+              {% endfor %}              
+            </fieldset>
+          </li>
+
+          <!--Por domicilio-->
+          <li>
+            <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
+              <div>
+                <input id="input-domicilio" class="mr-2" type="checkbox" onclick="checkAll(this, 'tipoDomicilio')">
+                <label class="text-lg leading-5 text-black" for="input-domicilio">
+                  Por domicilio
+                </label>
+              </div>
+
+              <button onclick="showMenu1(true, 'drop2', 'filter2')"
+                class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
+                <svg id="drop2" class="transform" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </button>
+            </div>
+
+            <fieldset id="filter2" class="mb-1 *:mb-2 *:mx-6">
+              {% for dom in domicilio %}
+              <div class="flex items-center">
+                <input id="domicilio-{{forloop.counter0}}" type="checkbox"
+                value="{{dom.0}}" data-filter="domicilio" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                <label for="domicilio-{{forloop.counter0}}" class="text-sm text-gray-900 ml-2 block">
+                  {{ dom.1 }}
+                </label>
+              </div>
+              {% endfor %}
+            </fieldset>
+          </li>
+
+          <!--Por inventario-->
+          <li>
+            <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
+              <div>
+                <input id="input-inventario" class="mr-2" type="checkbox" onclick="checkAll(this, 'tipoInventario')">
+                <label class="text-lg leading-5 text-black" for="input-inventario">
+                  Por inventario
+                </label>
+              </div>
+
+              <button onclick="showMenu1(true, 'drop3', 'filter3')"
+                class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
+                <svg id="drop3" class="transform" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </button>
+            </div>
+
+            <fieldset id="filter3" class="mb-1 *:mb-2 *:mx-6">
+              {% for inv in inventario %}
+              <div class="flex items-center">
+                <input id="inventario-{{forloop.counter0}}" type="checkbox"
+                value="{{inv.0}}" data-filter="inventario" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                <label for="inventario-{{forloop.counter0}}" class="text-sm text-gray-900 ml-2 block">
+                  {{ inv.1 }}
+                </label>
+              </div>
+              {% endfor %}
+            </fieldset>
+          </li>
+
+          <!--Por precio-->
+          <li>
+            <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
+              <div>
+                <input id="input-precio" class="mr-2" type="checkbox">
+                <label class="text-lg leading-5 text-black" for="input-precio">
+                  Por precio
+                </label>
+              </div>
+
+              <button onclick="showMenu1(true, 'drop4', 'filter4')"
+                class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
+                <svg id="drop4" class="transform" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </button>
+            </div>
+
+            <div id="filter4">
+              <div class="range_container">
+              <div class="sliders_control">
+                <input id="fromSlider" type="range" value="1000" min="1000" max="1000000000" />
+                <input id="toSlider" type="range" value="1000000000" min="1000" max="1000000000" />
+              </div>
+              <div class="form_control">
+                <div class="form_control_container">
+                  <div class="form_control_container__time">Min</div>
+                  <input class="form_control_container__time__input" type="number" id="fromInput" value="1000"
+                    min="1000" max="1000000000" />
+                </div>
+                <div class="form_control_container">
+                  <div class="form_control_container__time">Max</div>
+                  <input class="form_control_container__time__input" type="number" id="toInput" value="1000000000"
+                    min="1000" max="1000000000" />
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <style>
+              .range_container {
+                display: flex;
+                flex-direction: column;
+                width: 80%;
+                margin: 10px auto;
+              }
+
+              .sliders_control {
+                position: relative;
+                min-height: 50px;
+              }
+
+              .form_control {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                color: #635a5a;
+              }
+
+              input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                pointer-events: all;
+                width: 12px;
+                height: 12px;
+                background-color: #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 0 1px #C6C6C6;
+                cursor: pointer;
+              }
+
+              input[type=range]::-moz-range-thumb {
+                -webkit-appearance: none;
+                pointer-events: all;
+                width: 12px;
+                height: 12px;
+                background-color: #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 0 1px #C6C6C6;
+                cursor: pointer;
+              }
+
+              input[type=range]::-webkit-slider-thumb:hover {
+                background: #f7f7f7;
+              }
+
+              input[type=range]::-webkit-slider-thumb:active {
+                box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+                -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+              }
+
+              input[type="number"] {
+                color: #8a8383;
+                width: auto;
+                height: 24px;
+                font-size: 12px;
+                border: none;
+              }
+
+              input[type=number]::-webkit-inner-spin-button,
+              input[type=number]::-webkit-outer-spin-button {
+                opacity: 1;
+              }
+
+              input[type="range"] {
+                -webkit-appearance: none;
+                appearance: none;
+                height: 2px;
+                width: 100%;
+                position: absolute;
+                background-color: #C6C6C6;
+                pointer-events: none;
+              }
+
+              #fromSlider {
+                height: 0;
+                z-index: 1;
+              }
+            </style>
+          </li>
+        </ul>
+
+        <div class="flex justify-between items-center mb-5 mx-2 my-3">
+          <button onclick="reset()" class="rounded-lg px-2 py-2 bg-gray-700 text-white hover:bg-gray-800 delay-100 duration-500">
+            Reiniciar filtros
+          </button>
+
+          <form id="filtros">
+            <button type="submit" class="rounded-lg px-2 py-2 bg-green-500 hover:bg-green-600 delay-100 duration-500">
+              Aplicar filtros
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!--Boton de menu de filtros-->
+<script>
+  const menuBoton = document.getElementById('filter-button');
+  const menu = document.getElementById('filter-menu');
+  let menuAbierto = true; // Set to true to open the dropdown by default, false to close it by default
+
+  // Function to toggle the dropdown
+  function abrirMenu() {
+    menuAbierto = !menuAbierto;
+    if (menuAbierto) {
+      menu.classList.remove('hidden');
+    } else {
+      menu.classList.add('hidden');
+    }
+  }
+
+  // Initialize the dropdown state
+  abrirMenu();
+
+  // Toggle the dropdown when the button is clicked
+  menuBoton.addEventListener('click', abrirMenu);
+
+  // Close the dropdown when clicking outside of it
+  window.addEventListener('click', (event) => {
+    if (!menuBoton.contains(event.target) && !menu.contains(event.target)) {
+      menu.classList.add('hidden');
+      menuBoton.classList.remove('hidden');
+      menuAbierto = false;
+    }
+  });
+</script>
+
+<!--Checkbox de cada filtro-->
+<script>
+  const showMenu1 = (rotar, icon, menu) => {
+    let icono = document.getElementById(icon);
+    let filtro = document.getElementById(menu);
+    if (rotar) {
+      icono.classList.toggle("rotate-180");
+      filtro.classList.toggle("hidden");
+    }
+  };
+
+  const paretCategory = (parent, names) => {
+    var children = document.getElementsByName(names);
+    children.forEach((child) => {
+      if (child !== parent) child.checked = parent.checked;
+      child.onclick();
+    })
+};
+  function checkAll(parent, names) {
+    var children = document.getElementsByName(names);
+    children.forEach((child) => {
+      if (child !== parent) child.checked = parent.checked;
+    })
+  }
+
+  function reset(){
+    var boxes = document.querySelectorAll("input[type='checkbox']");
+    for (var i = 0; i < boxes.length; i++) {   
+            boxes[i].checked = false;
+        }
+  }
+</script>
+
+<!--Slider de los precios-->
+<script>
+  function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
+    const [from, to] = getParsed(fromInput, toInput);
+    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+    if (from > to) {
+      fromSlider.value = to;
+      fromInput.value = to;
+    } else {
+      fromSlider.value = from;
+    }
+  }
+
+  function controlToInput(toSlider, fromInput, toInput, controlSlider) {
+    const [from, to] = getParsed(fromInput, toInput);
+    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+    setToggleAccessible(toInput);
+    if (from <= to) {
+      toSlider.value = to;
+      toInput.value = to;
+    } else {
+      toInput.value = from;
+    }
+  }
+
+  function controlFromSlider(fromSlider, toSlider, fromInput) {
+    const [from, to] = getParsed(fromSlider, toSlider);
+    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+    if (from > to) {
+      fromSlider.value = to;
+      fromInput.value = to;
+    } else {
+      fromInput.value = from;
+    }
+  }
+
+  function controlToSlider(fromSlider, toSlider, toInput) {
+    const [from, to] = getParsed(fromSlider, toSlider);
+    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+    setToggleAccessible(toSlider);
+    if (from <= to) {
+      toSlider.value = to;
+      toInput.value = to;
+    } else {
+      toInput.value = from;
+      toSlider.value = from;
+    }
+  }
+
+  function getParsed(currentFrom, currentTo) {
+    const from = parseInt(currentFrom.value, 10);
+    const to = parseInt(currentTo.value, 10);
+    return [from, to];
+  }
+
+  function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
+    const rangeDistance = to.max - to.min;
+    const fromPosition = from.value - to.min;
+    const toPosition = to.value - to.min;
+    controlSlider.style.background = `linear-gradient(
+      to right,
+      ${sliderColor} 0%,
+      ${sliderColor} ${(fromPosition) / (rangeDistance) * 100}%,
+      ${rangeColor} ${((fromPosition) / (rangeDistance)) * 100}%,
+      ${rangeColor} ${(toPosition) / (rangeDistance) * 100}%, 
+      ${sliderColor} ${(toPosition) / (rangeDistance) * 100}%, 
+      ${sliderColor} 100%)`;
+  }
+
+  function setToggleAccessible(currentTarget) {
+    const toSlider = document.querySelector('#toSlider');
+    if (Number(currentTarget.value) <= 0) {
+      toSlider.style.zIndex = 2;
+    } else {
+      toSlider.style.zIndex = 0;
+    }
+  }
+
+  const fromSlider = document.querySelector('#fromSlider');
+  const toSlider = document.querySelector('#toSlider');
+  const fromInput = document.querySelector('#fromInput');
+  const toInput = document.querySelector('#toInput');
+  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+  setToggleAccessible(toSlider);
+
+  fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
+  toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
+  fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
+  toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+</script>
+
+<!--Script para filtrar-->
+<script>
+  $(document).ready(function() {
+      // Handle form submission
+      $('#filtros').submit(function(event) {
+          event.preventDefault(); // Prevent form submission
+
+          let filters = {};
+
+          $(".filter-checkbox").each(function(){
+            let filter_value = $(this).val()
+            let filter_key = $(this).data("filter") // universidad, domicilio, ...
+
+            filters[filter_key] = Array.from(document.querySelectorAll('input[data-filter='+ filter_key +']:checked')).map(function(element){
+              return element.value
+            })
+          })
+
+          console.log(filters);
+          $.ajax({
+            type: "GET",
+            url: "/filter-products",
+            data: filters,
+            dataType: 'json',
+            beforeSend: function(){
+              console.log("Sending Data...");
+            },
+            success: function(response){
+              console.log(response);
+              console.log("Success...");
+            },
+            error: function(e){
+              console.log(e);
+            }
+          })
+      });
+  });
+</script>

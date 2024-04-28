@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Buscar {{ query }}
+{% endblock %}
+
+{% block content %}
+  <div class="ml-3">
+    <h1 class="text-xl">Resultados de busqueda para "{{ query }}":</h1>
+
+  <h2 class="text-md text-gray-600">Hemos encontrado {{ products.count }} publicaciones</h2>
+
+  {% if products %}
+  <h2 class="text-xs font-bold text-gray-600"></h2>
+    {% include 'posts/partials/products.html' %}
+  {% else %}
+    <p class="text-lg"><b>No hay ningun producto o servicio relacionado con: {{ query }}</b></p>
+  {% endif %}
+  </div>
+{% endblock %}

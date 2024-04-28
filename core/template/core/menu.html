@@ -1,0 +1,32 @@
+<div class="dropdown flex items-center relative">
+    <div class="btn-group items-center">
+        {% for category in categories %}
+        <a class="bg-gray-700 border-gray-700 hover:bg-gray-900 focus:bg-gray-900 active:bg-gray-900 hover:text-gray-500 text-white px-2 py-1 rounded-l-lg delay-50 duration-500"
+            href="{% url 'category_detail' category.slug %}">
+            {{ category.title }}
+        </a>
+        <button type="button"
+            class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split bg-gray-700 border-gray-700 hover:bg-gray-900 focus:bg-gray-900 active:bg-gray-900 mr-2 px-1 py-1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">
+            </span>
+        </button>
+
+        <ul class="dropdown-menu bg-gray-500 border-gray-500 py-0"
+            aria-labelledby="dropdownMenuLink">
+            {% for item in category.subcategory.all %}
+            <li>
+                <a class="dropdown-item text-white hover:rounded-lg hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-600 delay-50 duration-500"
+                    href="{% url 'subcategory_detail' category.slug item.slug %}">
+                    {{ item.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'about-us' %}" class="text-white text-white hover:text-gray-400 active:text-gray-600 ml-6 mr-3">
+        Sobre nosotros
+    </a>
+</div>

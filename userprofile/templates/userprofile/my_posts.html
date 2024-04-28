@@ -1,0 +1,154 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Mis publicaciones
+{% endblock %}
+
+{% block content %}
+  <div class="flex items-center justify-between mt-2 mb-5 mx-2">
+    <h1 class="text-3xl">Mis publicaciones</h1>
+
+    <a href="{% url 'add_product' %}" class="inline-block text-white p-2 rounded-md bg-gray-700 hover:bg-gray-800 active:bg-gray-900">
+      Crear publicación
+    </a>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="mt-4 text-tail-800 font-bold">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+
+  <table class="min-w-full">
+    <thead class="bg-gray-200 border-b">
+      <tr>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          #
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Imagen
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Titulo
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Descripción
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Categoria
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Ventas
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Tiempo de publicación
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Estado
+        </th>
+        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-center">
+          Acción
+        </th>
+      </tr>
+    </thead>
+
+    {% if products %}
+    <tbody>
+      {% for product in products %}
+      
+        <tr class="bg-gray-100 border-b">
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+            {{ forloop.counter }}
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            <img class="w-full h-24 object-cover " src="{{ product.imagenes.url }}" alt="Imagen de {{ product.titulo }}"/>
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            {{ product.titulo }}
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            {{ product.descripcion|truncatewords:2 }}
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            {{ product.categoria }}
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            {% if product.inventario == 'LIMITADO' %}
+              Limitadas
+            {% else %}
+              Sin limites
+            {% endif %}
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            {{ product.created_at|timesince }}
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            {% if product.get_status == 'c' %} {% comment %} Activo {% endcomment %}
+              <p class="text-green-500 font-bold">{{ product.status|upper }}
+            {% elif product.get_status == 's' %} {% comment %} Esperando aprobación {% endcomment %}
+              <p class="text-yellow-500 font-bold">{{ product.status|upper }}
+            {% elif product.get_status == 'r' %} {% comment %} Procesado {% endcomment %}
+              <p class="text-orange-500 font-bold">{{ product.status|upper }}
+            {% else %} {% comment %} Eliminado {% endcomment %}
+              <p class="text-red-500 font-bold">{{ product.status|upper }}
+            {% endif %}
+          </p>
+          </td>
+
+          <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+            <div class="flex items-center justify-center">
+              <form action="{% url 'product_detail' product.categoria.slug product.subcategoria.slug product.slug %}" method="GET">
+                {% csrf_token %}
+                <button name="ver" id="{{ product.id }}" class="px-2 py-2 bg-blue-500 text-black rounded-lg hover:text-white hover:bg-blue-600 delay-50 duration-700 mr-1 flex" type='submit'>
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.108 10.044c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.686 6-6-2.686-6-6-6zM16.108 20.044c-2.206 0-4.046-1.838-4.046-4.044s1.794-4 4-4c2.206 0 4 1.794 4 4s-1.748 4.044-3.954 4.044zM31.99 15.768c-0.012-0.050-0.006-0.104-0.021-0.153-0.006-0.021-0.020-0.033-0.027-0.051-0.011-0.028-0.008-0.062-0.023-0.089-2.909-6.66-9.177-10.492-15.857-10.492s-13.074 3.826-15.984 10.486c-0.012 0.028-0.010 0.057-0.021 0.089-0.007 0.020-0.021 0.030-0.028 0.049-0.015 0.050-0.009 0.103-0.019 0.154-0.018 0.090-0.035 0.178-0.035 0.269s0.017 0.177 0.035 0.268c0.010 0.050 0.003 0.105 0.019 0.152 0.006 0.023 0.021 0.032 0.028 0.052 0.010 0.027 0.008 0.061 0.021 0.089 2.91 6.658 9.242 10.428 15.922 10.428s13.011-3.762 15.92-10.422c0.015-0.029 0.012-0.058 0.023-0.090 0.007-0.017 0.020-0.030 0.026-0.050 0.015-0.049 0.011-0.102 0.021-0.154 0.018-0.090 0.034-0.177 0.034-0.27 0-0.088-0.017-0.175-0.035-0.266zM16 25.019c-5.665 0-11.242-2.986-13.982-8.99 2.714-5.983 8.365-9.047 14.044-9.047 5.678 0 11.203 3.067 13.918 9.053-2.713 5.982-8.301 8.984-13.981 8.984z"></path>
+                  </svg>
+                  <p class="ml-1">
+                    Ver
+                  </p>
+                </button>
+              </form>
+  
+                  <form action="{% url 'edit_product' product.id %}" method="GET">
+                    {% csrf_token %}
+                    <button class="px-2 py-2 bg-green-400 text-black hover:text-white rounded-lg hover:bg-green-600 delay-50 duration-700 mr-1 flex" type='submit'>
+                      <svg class="h-5 w-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/>
+                      </svg>
+                      <p class="ml-1">
+                        Editar
+                      </p>  
+                    </button>
+                  </form>
+  
+                  <form action="{% url 'delete_product' product.id %}" method="GET">
+                    {% csrf_token %}
+                    <button class="px-2 py-2 bg-red-400 text-black rounded-lg hover:text-white hover:bg-red-600 delay-50 duration-700 flex" type='submit'>
+                      <svg class="h-5 w-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512">
+                        <path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/>
+                      </svg>
+                      <p class="ml-1">
+                        Eliminar
+                      </p>  
+                    </button>
+                  </form>
+            </div>
+          </td>
+        </tr>
+      
+    
+      {% endfor %}
+    </tbody>
+    {% else %}
+      <p>No tienes ninguna publicación</p>
+    {% endif %}
+  </table>
+{% endblock %}

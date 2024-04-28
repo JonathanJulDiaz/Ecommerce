@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  {% firstof user.get_full_name user.username %}
+{% endblock %}
+
+{% block content %}
+  <div class="flex mt-2">
+    <h1 class="text-xl mb-2">Vendedor: {% firstof user.get_full_name user.username %}</h1>
+
+  <a href="{% url 'profile' user.id %}">
+    <button class="flex-no-shrink bg-gray-400 hover:bg-gray-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-gray-300 hover:border-gray-500 text-black rounded-full transition ease-in duration-300">
+      Ver perfil
+    </button>
+  </a>
+  </div>
+  
+  {% include 'posts/partials/products.html' %}
+{% endblock %}
