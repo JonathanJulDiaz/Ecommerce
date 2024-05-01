@@ -22,12 +22,10 @@
           <!--Por universidades-->
           <li>
             <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
-              <div>
-                <input id="input-universidad" class="mr-2" type="checkbox" onclick="checkAll(this, 'universidades')">
-                <label for="input-universidad" class="text-lg leading-5 text-black">
-                  Por universidades
-                </label>
-              </div>
+              <input id="input-universidad" class="mr-2" type="checkbox" onclick="checkAll(this, 'universidad')">
+              <label for="input-universidad" class="text-lg leading-5 text-black">
+                Por universidades
+              </label>
 
               <button onclick="showMenu1(true, 'drop1', 'filter1')"
                 class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
@@ -43,7 +41,7 @@
               {% for uni in universities %}
               <div class="flex items-center">
                 <input id="university-{{ forloop.counter0 }}" type="checkbox"
-                value="{{uni.0}}" data-filter="universidad" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                value="{{ uni.0 }}" data-filter="universidad" data-key="{{ uni.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
                 <label for="university-{{ forloop.counter0 }}" class="text-sm text-gray-900 ml-2 block">
                   {{ uni.1 }}
                 </label>
@@ -56,7 +54,7 @@
           <li>
             <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
               <div>
-                <input id="input-domicilio" class="mr-2" type="checkbox" onclick="checkAll(this, 'tipoDomicilio')">
+                <input id="input-domicilio" class="mr-2" type="checkbox" onclick="checkAll(this, 'domicilio')">
                 <label class="text-lg leading-5 text-black" for="input-domicilio">
                   Por domicilio
                 </label>
@@ -76,7 +74,7 @@
               {% for dom in domicilio %}
               <div class="flex items-center">
                 <input id="domicilio-{{forloop.counter0}}" type="checkbox"
-                value="{{dom.0}}" data-filter="domicilio" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                value="{{ dom.0 }}" data-filter="domicilio" data-key="{{ dom.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
                 <label for="domicilio-{{forloop.counter0}}" class="text-sm text-gray-900 ml-2 block">
                   {{ dom.1 }}
                 </label>
@@ -89,7 +87,7 @@
           <li>
             <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
               <div>
-                <input id="input-inventario" class="mr-2" type="checkbox" onclick="checkAll(this, 'tipoInventario')">
+                <input id="input-inventario" class="mr-2" type="checkbox" onclick="checkAll(this, 'inventario')">
                 <label class="text-lg leading-5 text-black" for="input-inventario">
                   Por inventario
                 </label>
@@ -109,7 +107,7 @@
               {% for inv in inventario %}
               <div class="flex items-center">
                 <input id="inventario-{{forloop.counter0}}" type="checkbox"
-                value="{{inv.0}}" data-filter="inventario" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                value="{{ inv.0 }}" data-filter="inventario" data-key="{{ inv.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
                 <label for="inventario-{{forloop.counter0}}" class="text-sm text-gray-900 ml-2 block">
                   {{ inv.1 }}
                 </label>
@@ -301,15 +299,8 @@
     }
   };
 
-  const paretCategory = (parent, names) => {
-    var children = document.getElementsByName(names);
-    children.forEach((child) => {
-      if (child !== parent) child.checked = parent.checked;
-      child.onclick();
-    })
-};
-  function checkAll(parent, names) {
-    var children = document.getElementsByName(names);
+  function checkAll(parent, filter) {
+    var children = document.querySelectorAll("input[data-filter=" + filter + "]");
     children.forEach((child) => {
       if (child !== parent) child.checked = parent.checked;
     })
@@ -417,38 +408,39 @@
 <!--Script para filtrar-->
 <script>
   $(document).ready(function() {
+    
       // Handle form submission
       $('#filtros').submit(function(event) {
           event.preventDefault(); // Prevent form submission
 
-          let filters = {};
+          let universidad = [];
+          let domicilio = [];
+          let inventario = [];
+
+          let filter_object = {};
 
           $(".filter-checkbox").each(function(){
-            let filter_value = $(this).val()
-            let filter_key = $(this).data("filter") // universidad, domicilio, ...
+            let filter_key = $(this).data("filter"); // universidad, domicilio, ...
+            
+            filter_object[filter_key] = Array.from(document.querySelectorAll('input[data-filter= '+ filter_key
+            +']:checked')).map(function(element){
+              return element.value;
+            });
+          });
 
-            filters[filter_key] = Array.from(document.querySelectorAll('input[data-filter='+ filter_key +']:checked')).map(function(element){
-              return element.value
-            })
-          })
-
-          console.log(filters);
           $.ajax({
             type: "GET",
-            url: "/filter-products",
-            data: filters,
+            url: "{% url 'filter-product' %}",
+            data: filter_object,
             dataType: 'json',
             beforeSend: function(){
-              console.log("Sending Data...");
+              console.log(filter_object);
             },
             success: function(response){
-              console.log(response);
-              console.log("Success...");
+              console.log(response.data);
+              $("#filtered-products").html(response.data);
             },
-            error: function(e){
-              console.log(e);
-            }
-          })
+          });
+        });
       });
-  });
 </script>

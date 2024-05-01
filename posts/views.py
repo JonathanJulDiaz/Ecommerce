@@ -1,7 +1,10 @@
 from django.db.models import Q
-from django.db.models.manager import BaseManager
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+from userprofile.models import UserProfile
 
 from .models import Product, Category, Subcategory
 
@@ -13,6 +16,8 @@ from userprofile.saved import Saved
 
 from taggit.models import Tag
 
+from django.template.loader import render_to_string
+
 def search(request):
     query = request.GET.get('query','')
     products = Product.objects.filter(Q(titulo__icontains=query)|
@@ -20,12 +25,30 @@ def search(request):
 
     return render(request, 'posts/search.html', {'query':query, 'products':products})
 
-def filter(request, products: BaseManager[Product]):
-    query = request.GET.get('query','')
-    products = products.filter(Q(titulo__icontains=query)|
-                                      Q(descripcion__icontains=query), status=Product.ACTIVO)
+def filter_products(request):
+    university = request.GET.getlist('universidad[]')
+    domicilios = request.GET.getlist('domicilio[]')
+    inventarios = request.GET.getlist('inventario[]')
 
-    return render(request, 'posts/search.html', {'query':query, 'products':products})
+    products = Product.objects.filter(status=Product.ACTIVO)
+
+    # Filtrar por universidad
+    if university:
+        userprofile1 = UserProfile.objects.filter(universidad__in=university)
+
+        user1 = User.objects.filter(userprofile__in=userprofile1)
+
+        products = products.filter(user__in=user1)
+
+    # Filtrar por domicilio y inventario
+    if domicilios:
+        products = products.filter(domicilio__in=domicilios)
+
+    if inventarios:
+        products = products.filter(inventario__in=inventarios)
+
+    data = render_to_string("posts/partials/products.html", { 'products': products })
+    return JsonResponse({ "data": data })
 
 def tagged(request, slug):
     tag = get_object_or_404(Tag, slug=slug)

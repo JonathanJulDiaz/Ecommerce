@@ -14,7 +14,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from core.views import FrontPage, About, filter_products
+from core.views import frontpage, About
 
 urlpatterns = [
     path('about-us/', About.as_view(), name='about-us'),
@@ -25,10 +25,7 @@ urlpatterns = [
 
     path('', include('posts.urls')),
 
-    path('', FrontPage.as_view(), name='front-page'),
-
-    #Filtrar
-    path('filter-products/', filter_products, name="filter-product"),
+    path('', frontpage, name='front-page'),
 
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     
