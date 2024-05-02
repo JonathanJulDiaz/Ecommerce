@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="text-2xl ml-3 mb-2"><b>Subcategoria:</b> {{ subcategory.title }}</h1>
+  <h1 id="subcategory" data-filter={{ subcategory.id }} class="text-2xl ml-3 mb-2"><b>Subcategoria:</b> {{ subcategory.title }}</h1>
 
-  {% include 'core/filters.html' with request=request products=products only %}
+  {% include 'core/filters.html' with request=request products=products universities=universities domicilio=domicilio inventario=inventario only%}
 
-  {% include 'posts/partials/products.html' %}
+  {% include 'posts/partials/products.html' with request=request products=products only %}
 {% endblock %}

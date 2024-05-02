@@ -4,7 +4,8 @@
     <span class="text-white flex items-center justify-between *:mx-1">
       <p class="text-lg">Filtros</p>
       <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path fill="#FFFFFF" d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/>
+        <path fill="#FFFFFF"
+          d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
       </svg>
     </span>
   </button>
@@ -40,13 +41,14 @@
             <fieldset id="filter1" class="mb-1 *:mb-2 *:mx-6">
               {% for uni in universities %}
               <div class="flex items-center">
-                <input id="university-{{ forloop.counter0 }}" type="checkbox"
-                value="{{ uni.0 }}" data-filter="universidad" data-key="{{ uni.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                <input id="university-{{ forloop.counter0 }}" type="checkbox" value="{{ uni.0 }}"
+                  data-filter="universidad" data-key="{{ uni.1 }}"
+                  class="filter-checkbox border-gray-300 hover:bg-gray-500">
                 <label for="university-{{ forloop.counter0 }}" class="text-sm text-gray-900 ml-2 block">
                   {{ uni.1 }}
                 </label>
               </div>
-              {% endfor %}              
+              {% endfor %}
             </fieldset>
           </li>
 
@@ -73,8 +75,8 @@
             <fieldset id="filter2" class="mb-1 *:mb-2 *:mx-6">
               {% for dom in domicilio %}
               <div class="flex items-center">
-                <input id="domicilio-{{forloop.counter0}}" type="checkbox"
-                value="{{ dom.0 }}" data-filter="domicilio" data-key="{{ dom.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                <input id="domicilio-{{forloop.counter0}}" type="checkbox" value="{{ dom.0 }}" data-filter="domicilio"
+                  data-key="{{ dom.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
                 <label for="domicilio-{{forloop.counter0}}" class="text-sm text-gray-900 ml-2 block">
                   {{ dom.1 }}
                 </label>
@@ -106,8 +108,8 @@
             <fieldset id="filter3" class="mb-1 *:mb-2 *:mx-6">
               {% for inv in inventario %}
               <div class="flex items-center">
-                <input id="inventario-{{forloop.counter0}}" type="checkbox"
-                value="{{ inv.0 }}" data-filter="inventario" data-key="{{ inv.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                <input id="inventario-{{forloop.counter0}}" type="checkbox" value="{{ inv.0 }}" data-filter="inventario"
+                  data-key="{{ inv.1 }}" class="filter-checkbox border-gray-300 hover:bg-gray-500">
                 <label for="inventario-{{forloop.counter0}}" class="text-sm text-gray-900 ml-2 block">
                   {{ inv.1 }}
                 </label>
@@ -119,13 +121,10 @@
           <!--Por precio-->
           <li>
             <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
-              <div>
-                <input id="input-precio" class="mr-2" type="checkbox">
-                <label class="text-lg leading-5 text-black" for="input-precio">
-                  Por precio
-                </label>
-              </div>
-
+              <input id="input-precio" class="filter-checkbox mr-2" type="checkbox" data-filter="precio">
+              <label class="text-lg leading-5 text-black" for="input-precio">
+                Por precio
+              </label>
               <button onclick="showMenu1(true, 'drop4', 'filter4')"
                 class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
                 <svg id="drop4" class="transform" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
@@ -136,120 +135,103 @@
               </button>
             </div>
 
-            <div id="filter4">
-              <div class="range_container">
-              <div class="sliders_control">
-                <input id="fromSlider" type="range" value="1000" min="1000" max="1000000000" />
-                <input id="toSlider" type="range" value="1000000000" min="1000" max="1000000000" />
-              </div>
-              <div class="form_control">
-                <div class="form_control_container">
-                  <div class="form_control_container__time">Min</div>
-                  <input class="form_control_container__time__input" type="number" id="fromInput" value="1000"
-                    min="1000" max="1000000000" />
-                </div>
-                <div class="form_control_container">
-                  <div class="form_control_container__time">Max</div>
-                  <input class="form_control_container__time__input" type="number" id="toInput" value="1000000000"
-                    min="1000" max="1000000000" />
-                </div>
-              </div>
-            </div>
-            </div>
-
             <style>
-              .range_container {
-                display: flex;
-                flex-direction: column;
-                width: 80%;
-                margin: 10px auto;
-              }
-
-              .sliders_control {
-                position: relative;
-                min-height: 50px;
-              }
-
-              .form_control {
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                font-size: 12px;
-                color: #635a5a;
-              }
-
               input[type=range]::-webkit-slider-thumb {
-                -webkit-appearance: none;
                 pointer-events: all;
                 width: 12px;
                 height: 12px;
-                background-color: #fff;
-                border-radius: 50%;
-                box-shadow: 0 0 0 1px #C6C6C6;
-                cursor: pointer;
-              }
-
-              input[type=range]::-moz-range-thumb {
                 -webkit-appearance: none;
-                pointer-events: all;
-                width: 12px;
-                height: 12px;
-                background-color: #fff;
-                border-radius: 50%;
-                box-shadow: 0 0 0 1px #C6C6C6;
-                cursor: pointer;
-              }
-
-              input[type=range]::-webkit-slider-thumb:hover {
-                background: #f7f7f7;
-              }
-
-              input[type=range]::-webkit-slider-thumb:active {
-                box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-                -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-              }
-
-              input[type="number"] {
-                color: #8a8383;
-                width: auto;
-                height: 24px;
-                font-size: 12px;
-                border: none;
-              }
-
-              input[type=number]::-webkit-inner-spin-button,
-              input[type=number]::-webkit-outer-spin-button {
-                opacity: 1;
-              }
-
-              input[type="range"] {
-                -webkit-appearance: none;
-                appearance: none;
-                height: 2px;
-                width: 100%;
-                position: absolute;
-                background-color: #C6C6C6;
-                pointer-events: none;
-              }
-
-              #fromSlider {
-                height: 0;
-                z-index: 1;
+                /* @apply w-6 h-6 appearance-none pointer-events-auto; */
               }
             </style>
+            <div id="filter4">
+              <div class="flex justify-center items-center mx-6">
+                <div id="slider" x-data="range()" x-init="mintrigger(); maxtrigger()" class="relative max-w-xl w-full">
+                  <div>
+                    <input id="fromInput" type="range" step="5000" x-bind:min="min" x-bind:max="max"
+                      x-on:input="mintrigger" x-model="minprice"
+                      class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+  
+                    <input id="toInput" type="range" step="5000" x-bind:min="min" x-bind:max="max" x-on:input="maxtrigger"
+                      x-model="maxprice"
+                      class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+  
+                    <div class="relative z-10 h-2">
+  
+                      <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-400"></div>
+  
+                      <div class="absolute z-20 top-0 bottom-0 rounded-md bg-gray-600"
+                        x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"></div>
+  
+                      <div class="absolute z-30 w-4 h-4 top-0 left-0 bg-gray-600 rounded-full -mt-1 -ml-1"
+                        x-bind:style="'left: '+minthumb+'%'"></div>
+  
+                      <div class="absolute z-30 w-4 h-4 top-0 right-0 bg-gray-600 rounded-full -mt-1 -mr-1"
+                        x-bind:style="'right: '+maxthumb+'%'"></div>
+  
+                    </div>
+  
+                  </div>
+  
+                  <div class="flex justify-between items-center mt-2 mb-3">
+                    <div>
+                      <input id="precio_min" type="text" maxlength="12" x-on:input="mintrigger" x-model="minprice"
+                        class="mx-2 border border-gray-200 rounded w-24 text-center text-xs">
+                    </div>
+                    <div>
+                      <input id="precio_max" type="text" maxlength="12" x-on:input="maxtrigger" x-model="maxprice"
+                        class="mx-2 border border-gray-200 rounded w-24 text-center text-xs">
+                    </div>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="precio-1" type="checkbox" value="0" data-filter="precio1"
+                      data-key="5000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <label for="precio-1" class="text-sm text-gray-900 ml-2 block">
+                      $ 0 - $ 5,000
+                    </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="precio-2" type="checkbox" value="10000" data-filter="precio2"
+                      data-key="30000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <label for="precio-2" class="text-sm text-gray-900 ml-2 block">
+                      $ 10,000 - $ 30,000
+                    </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="precio-3" type="checkbox" value="50000" data-filter="precio3"
+                      data-key="100000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <label for="precio-3" class="text-sm text-gray-900 ml-2 block">
+                      $ 50,000 - $ 100,000
+                    </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="precio-4" type="checkbox" value="200000" data-filter="precio4"
+                      data-key="500000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <label for="precio-4" class="text-sm text-gray-900 ml-2 block">
+                      $ 200,000 - $500,000
+                    </label>
+                  </div>
+  
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
 
         <div class="flex justify-between items-center mb-5 mx-2 my-3">
-          <button onclick="reset()" class="rounded-lg px-2 py-2 bg-gray-700 text-white hover:bg-gray-800 delay-100 duration-500">
+          <button onclick="reset()"
+            class="rounded-lg px-2 py-2 bg-gray-700 text-white hover:bg-gray-800 delay-100 duration-500">
             Reiniciar filtros
           </button>
 
-          <form id="filtros">
-            <button type="submit" class="rounded-lg px-2 py-2 bg-green-500 hover:bg-green-600 delay-100 duration-500">
-              Aplicar filtros
-            </button>
-          </form>
+          <button id="filtros" type="submit"
+            class="rounded-lg px-2 py-2 bg-green-500 hover:bg-green-600 delay-100 duration-500">
+            Filtrar
+          </button>
         </div>
       </div>
     </nav>
@@ -306,141 +288,123 @@
     })
   }
 
-  function reset(){
+  function reset() {
     var boxes = document.querySelectorAll("input[type='checkbox']");
-    for (var i = 0; i < boxes.length; i++) {   
-            boxes[i].checked = false;
-        }
+    for (var i = 0; i < boxes.length; i++) {
+      boxes[i].checked = false;
+    }
   }
 </script>
 
-<!--Slider de los precios-->
+<!--Rango de precios-->
 <script>
-  function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
-    const [from, to] = getParsed(fromInput, toInput);
-    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
-    if (from > to) {
-      fromSlider.value = to;
-      fromInput.value = to;
-    } else {
-      fromSlider.value = from;
+  function getRangePrice() {
+    let slider = document.getElementById('slider');
+
+  }
+  function getPrice() {
+    let values = [];
+
+    $('.price').each(function () {
+      let text = $(this).text().replace(/,/g, '');
+      values.push(parseInt(text, 10));
+    });
+
+    let limit = [Math.min(...values), Math.max(...values)];
+    return limit;
+  }
+
+  function range() {
+    let range = getPrice();
+    //$('#fromInput').attr("step", Math.round((range[1])/10));
+    //$('#toInput').attr("step", Math.round((range[1])/10));
+    return {
+      minprice: range[0],
+      maxprice: range[1],
+      min: range[0] - 1000,
+      max: range[1] + 1000,
+      minthumb: 0,
+      maxthumb: 0,
+
+      mintrigger() {
+        this.minprice = Math.min(this.minprice, this.maxprice - 500);
+        this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
+      },
+
+      maxtrigger() {
+        this.maxprice = Math.max(this.maxprice, this.minprice + 500);
+        this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+      },
     }
   }
-
-  function controlToInput(toSlider, fromInput, toInput, controlSlider) {
-    const [from, to] = getParsed(fromInput, toInput);
-    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
-    setToggleAccessible(toInput);
-    if (from <= to) {
-      toSlider.value = to;
-      toInput.value = to;
-    } else {
-      toInput.value = from;
-    }
-  }
-
-  function controlFromSlider(fromSlider, toSlider, fromInput) {
-    const [from, to] = getParsed(fromSlider, toSlider);
-    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-    if (from > to) {
-      fromSlider.value = to;
-      fromInput.value = to;
-    } else {
-      fromInput.value = from;
-    }
-  }
-
-  function controlToSlider(fromSlider, toSlider, toInput) {
-    const [from, to] = getParsed(fromSlider, toSlider);
-    fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-    setToggleAccessible(toSlider);
-    if (from <= to) {
-      toSlider.value = to;
-      toInput.value = to;
-    } else {
-      toInput.value = from;
-      toSlider.value = from;
-    }
-  }
-
-  function getParsed(currentFrom, currentTo) {
-    const from = parseInt(currentFrom.value, 10);
-    const to = parseInt(currentTo.value, 10);
-    return [from, to];
-  }
-
-  function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-    const rangeDistance = to.max - to.min;
-    const fromPosition = from.value - to.min;
-    const toPosition = to.value - to.min;
-    controlSlider.style.background = `linear-gradient(
-      to right,
-      ${sliderColor} 0%,
-      ${sliderColor} ${(fromPosition) / (rangeDistance) * 100}%,
-      ${rangeColor} ${((fromPosition) / (rangeDistance)) * 100}%,
-      ${rangeColor} ${(toPosition) / (rangeDistance) * 100}%, 
-      ${sliderColor} ${(toPosition) / (rangeDistance) * 100}%, 
-      ${sliderColor} 100%)`;
-  }
-
-  function setToggleAccessible(currentTarget) {
-    const toSlider = document.querySelector('#toSlider');
-    if (Number(currentTarget.value) <= 0) {
-      toSlider.style.zIndex = 2;
-    } else {
-      toSlider.style.zIndex = 0;
-    }
-  }
-
-  const fromSlider = document.querySelector('#fromSlider');
-  const toSlider = document.querySelector('#toSlider');
-  const fromInput = document.querySelector('#fromInput');
-  const toInput = document.querySelector('#toInput');
-  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
-  setToggleAccessible(toSlider);
-
-  fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
-  toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
-  fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
-  toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
 </script>
 
 <!--Script para filtrar-->
 <script>
-  $(document).ready(function() {
-    
-      // Handle form submission
-      $('#filtros').submit(function(event) {
-          event.preventDefault(); // Prevent form submission
+  $(document).ready(function () {
 
-          let universidad = [];
-          let domicilio = [];
-          let inventario = [];
+    // Handle form submission
+    $('#filtros').click(function (event) {
+      event.preventDefault(); // Prevent form submission
 
-          let filter_object = {};
+      let universidad = [];
+      let domicilio = [];
+      let inventario = [];
+      let price = [];
 
-          $(".filter-checkbox").each(function(){
-            let filter_key = $(this).data("filter"); // universidad, domicilio, ...
-            
-            filter_object[filter_key] = Array.from(document.querySelectorAll('input[data-filter= '+ filter_key
-            +']:checked')).map(function(element){
-              return element.value;
-            });
-          });
+      $(".filter-checkbox:checked").each(function () {
+        let filter_key = $(this).data("filter"); // universidad, domicilio, ...
 
-          $.ajax({
-            type: "GET",
-            url: "{% url 'filter-product' %}",
-            data: filter_object,
-            dataType: 'json',
-            beforeSend: function(){
-              console.log(filter_object);
-            },
-            success: function(response){
-              console.log(response.data);
-              $("#filtered-products").html(response.data);
-            },
-          });
-        });
+        let value = $(this).val();
+        if (filter_key == 'universidad') {
+          universidad.push(value);
+        }
+        else if (filter_key == 'domicilio') {
+          domicilio.push(value);
+        }
+        else if (filter_key == 'inventario') {
+          inventario.push(value);
+        }
+        else if (filter_key == 'precio') {
+          let min = parseInt($('#fromInput').val());
+          let max = parseInt($('#toInput').val());
+
+          price.push(min);
+          price.push(max);
+        }
+        else{
+          let min = parseInt(value);
+          let max = parseInt($(this).data("key"));
+
+          price.push(min);
+          price.push(max);
+        }
       });
+
+      let category = $("#category").data("filter");
+      let subcategory = $("#subcategory").data("filter");
+      let tag = $("#tag").data("filter");
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'filter-product' %}",
+        data: {
+          'universidad': universidad,
+          'domicilio': domicilio,
+          'inventario': inventario,
+          'category': category,
+          'subcategory': subcategory,
+          'tag': tag,
+          'price': price
+        },
+        dataType: 'json',
+        beforeSend: function () {
+          console.log(price);
+        },
+        success: function (response) {
+          $("#filtered-products").html(response.data);
+        },
+      });
+    });
+  });
 </script>

@@ -41,5 +41,6 @@ Home
 
 {% include 'core/filters.html' with request=request products=products universities=universities domicilio=domicilio inventario=inventario only%}
 
-    {% include 'posts/partials/products.html' %}
+{% include 'posts/partials/products.html' with request=request products=products only %}
+
 {% endblock %}

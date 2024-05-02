@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
+from django.db.models import Max, Min, Aggregate
 
 from posts.models import Product
 
@@ -21,7 +22,6 @@ def frontpage(request):
     }
 
     return render(request, 'core/frontpage.html', content)
-
 
 class About(View):
     template_name = 'core/about.html'

@@ -30,7 +30,26 @@ def filter_products(request):
     domicilios = request.GET.getlist('domicilio[]')
     inventarios = request.GET.getlist('inventario[]')
 
+    category = request.GET.get('category')
+    subcategory = request.GET.get('subcategory')
+    tag = request.GET.get('tag')
+    precio = request.GET.getlist('price[]')
+
     products = Product.objects.filter(status=Product.ACTIVO)
+
+    if precio:
+        precio = [int(x) for x in precio]
+
+        maximo = max(precio)
+        minimo = min(precio)
+
+        products = products.filter(precio__gte=minimo, precio__lte=maximo)
+    elif tag:
+        products = products.filter(tags__in=tag)
+    elif subcategory:
+        products = products.filter(subcategoria_id=subcategory)
+    elif category:
+        products = products.filter(categoria_id=category)
 
     # Filtrar por universidad
     if university:
@@ -53,10 +72,16 @@ def filter_products(request):
 def tagged(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     products = Product.objects.filter(tags=tag)
+    universities = UserProfile._meta.get_field('universidad').choices
+    domicilio = Product._meta.get_field('domicilio').choices
+    inventario = Product._meta.get_field('inventario').choices
 
     context = {
         'tag':tag,
         'products':products,
+        'universities': universities,
+        'domicilio': domicilio,
+        'inventario': inventario,
     }
 
     return render(request, 'posts/tags.html', context)
@@ -65,11 +90,17 @@ def subcategory_detail(request, slug, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     subcategory = get_object_or_404(Subcategory, slug=slug)
     products = subcategory.products.filter(status=Product.ACTIVO)
+    universities = UserProfile._meta.get_field('universidad').choices
+    domicilio = Product._meta.get_field('domicilio').choices
+    inventario = Product._meta.get_field('inventario').choices
 
     content = {
         'category': category,
         'subcategory':subcategory,
-        'products': products
+        'products': products,
+        'universities': universities,
+        'domicilio': domicilio,
+        'inventario': inventario,
     }
     return render(request, 'posts/subcategory_detail.html', content)
 
@@ -77,9 +108,16 @@ def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = category.products.filter(status=Product.ACTIVO)
 
+    universities = UserProfile._meta.get_field('universidad').choices
+    domicilio = Product._meta.get_field('domicilio').choices
+    inventario = Product._meta.get_field('inventario').choices
+
     content = {
         'category': category,
-        'products': products
+        'products': products,
+        'universities': universities,
+        'domicilio': domicilio,
+        'inventario': inventario,
     }
     return render(request, 'posts/category_detail.html', content)
 
