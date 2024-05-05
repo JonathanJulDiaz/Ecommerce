@@ -1,6 +1,6 @@
 <div class="flex items-center justify-start px-2 z-20">
   <button id="filter-button"
-    class="relative z-30 peer px-1 py-1 rounded-md bg-gray-500 hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-700 transition">
+    class="relative peer px-1 py-1 rounded-md bg-gray-500 hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-700 transition duration-700">
     <span class="text-white flex items-center justify-between *:mx-1">
       <p class="text-lg">Filtros</p>
       <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -23,10 +23,12 @@
           <!--Por universidades-->
           <li>
             <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
-              <input id="input-universidad" class="mr-2" type="checkbox" onclick="checkAll(this, 'universidad')">
-              <label for="input-universidad" class="text-lg leading-5 text-black">
-                Por universidades
-              </label>
+              <div>
+                <input id="input-universidad" class="mr-2" type="checkbox" onclick="checkAll(this, 'universidad')">
+                <label for="input-universidad" class="text-lg leading-5 text-black">
+                  Por universidades
+                </label>
+              </div>
 
               <button onclick="showMenu1(true, 'drop1', 'filter1')"
                 class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
@@ -121,10 +123,12 @@
           <!--Por precio-->
           <li>
             <div class="flex items-center justify-between px-3 text-gray-700 font-bold mb-2">
-              <input id="input-precio" class="filter-checkbox mr-2" type="checkbox" data-filter="precio">
-              <label class="text-lg leading-5 text-black" for="input-precio">
-                Por precio
-              </label>
+              <div>
+                <input id="input-precio" class="filter-checkbox mr-2" type="checkbox" data-filter="precio">
+                <label class="text-lg leading-5 text-black" for="input-precio">
+                  Por precio
+                </label>
+              </div>
               <button onclick="showMenu1(true, 'drop4', 'filter4')"
                 class="focus:outline-none flex items-center py-2 px-2 bg-gray-300 hover:bg-gray-500 rounded-md delay-50 duration-500">
                 <svg id="drop4" class="transform" width="12" height="12" xmlns="http://www.w3.org/2000/svg"
@@ -151,28 +155,28 @@
                     <input id="fromInput" type="range" step="5000" x-bind:min="min" x-bind:max="max"
                       x-on:input="mintrigger" x-model="minprice"
                       class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
-  
-                    <input id="toInput" type="range" step="5000" x-bind:min="min" x-bind:max="max" x-on:input="maxtrigger"
-                      x-model="maxprice"
+
+                    <input id="toInput" type="range" step="5000" x-bind:min="min" x-bind:max="max"
+                      x-on:input="maxtrigger" x-model="maxprice"
                       class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
-  
+
                     <div class="relative z-10 h-2">
-  
+
                       <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-400"></div>
-  
+
                       <div class="absolute z-20 top-0 bottom-0 rounded-md bg-gray-600"
                         x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"></div>
-  
+
                       <div class="absolute z-30 w-4 h-4 top-0 left-0 bg-gray-600 rounded-full -mt-1 -ml-1"
                         x-bind:style="'left: '+minthumb+'%'"></div>
-  
+
                       <div class="absolute z-30 w-4 h-4 top-0 right-0 bg-gray-600 rounded-full -mt-1 -mr-1"
                         x-bind:style="'right: '+maxthumb+'%'"></div>
-  
+
                     </div>
-  
+
                   </div>
-  
+
                   <div class="flex justify-between items-center mt-2 mb-3">
                     <div>
                       <input id="precio_min" type="text" maxlength="12" x-on:input="mintrigger" x-model="minprice"
@@ -185,37 +189,45 @@
                   </div>
 
                   <div class="flex items-center">
-                    <input id="precio-1" type="checkbox" value="0" data-filter="precio1"
-                      data-key="5000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <input id="precio-1" type="checkbox" value="0" data-filter="precio1" data-key="5000"
+                      class="filter-checkbox border-gray-300 hover:bg-gray-500">
                     <label for="precio-1" class="text-sm text-gray-900 ml-2 block">
                       $ 0 - $ 5,000
                     </label>
                   </div>
 
                   <div class="flex items-center">
-                    <input id="precio-2" type="checkbox" value="10000" data-filter="precio2"
-                      data-key="30000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <input id="precio-2" type="checkbox" value="10000" data-filter="precio2" data-key="30000"
+                      class="filter-checkbox border-gray-300 hover:bg-gray-500">
                     <label for="precio-2" class="text-sm text-gray-900 ml-2 block">
                       $ 10,000 - $ 30,000
                     </label>
                   </div>
 
                   <div class="flex items-center">
-                    <input id="precio-3" type="checkbox" value="50000" data-filter="precio3"
-                      data-key="100000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <input id="precio-3" type="checkbox" value="50000" data-filter="precio3" data-key="100000"
+                      class="filter-checkbox border-gray-300 hover:bg-gray-500">
                     <label for="precio-3" class="text-sm text-gray-900 ml-2 block">
                       $ 50,000 - $ 100,000
                     </label>
                   </div>
 
                   <div class="flex items-center">
-                    <input id="precio-4" type="checkbox" value="200000" data-filter="precio4"
-                      data-key="500000" class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <input id="precio-4" type="checkbox" value="200000" data-filter="precio4" data-key="500000"
+                      class="filter-checkbox border-gray-300 hover:bg-gray-500">
                     <label for="precio-4" class="text-sm text-gray-900 ml-2 block">
                       $ 200,000 - $500,000
                     </label>
                   </div>
-  
+
+                  <div class="flex items-center">
+                    <input id="precio-5" type="checkbox" value="1000000" data-filter="precio4" data-key="infinity"
+                      class="filter-checkbox border-gray-300 hover:bg-gray-500">
+                    <label for="precio-5" class="text-sm text-gray-900 ml-2 block">
+                      $ 1,000,000+
+                    </label>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -235,6 +247,98 @@
         </div>
       </div>
     </nav>
+  </div>
+
+  <div class="flex ml-2">
+    <div @click.away="openSort = false" class="relative" x-data="{ openSort: false,sortType:'Ordenar por' }">
+      <button id="ordenar" @click="openSort = !openSort"
+        class="text-white text-lg flex items-center justify-between px-2 py-1 rounded-md bg-gray-500 hover:bg-gray-800 focus:bg-gray-800 active:bg-gray-700 transition duration-700">
+        <span id="order_by" x-text="sortType"></span>
+        <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': openSort, 'rotate-0': !openSort}"
+          class="w-4 h-4  transition-transform duration-200 transform ">
+          <path fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+
+      <div x-show="openSort" x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100"
+        x-transition:leave-end="transform opacity-0 scale-95" class="absolute z-50 w-full origin-top-right">
+        <div class="bg-gray-500 rounded-md shadow-lg">
+          <div class="flex flex-col *:text-white">
+            <div data-order="1" @click="sortType='Precio (asc)',openSort=!openSort" x-show="sortType != 'Precio (asc)'"
+              class="order_opcion flex items-center justify-between rounded-lg p-2 hover:bg-gray-700 hover:border-gray-700 cursor-pointer">
+              <p class="font-semibold">
+                Precio
+              </p>
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="#FFFFFF"
+                d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+            </div>
+
+            <div data-order="2" @click="sortType='Precio (desc)',openSort=!openSort"
+              x-show="sortType != 'Precio (desc)'"
+              class="order_opcion flex items-center justify-between rounded-lg p-2 hover:bg-gray-700 hover:border-gray-700 cursor-pointer">
+              <p class="font-semibold">
+                Precio
+              </p>
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="#FFFFFF"
+                  d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z" />
+              </svg>
+            </div>
+
+            <div data-order="3" @click="sortType='Fecha de creación (asc)',openSort=!openSort"
+              x-show="sortType != 'Fecha de creación (asc)'"
+              class="order_opcion flex items-center justify-between rounded-lg p-2 hover:bg-gray-700 hover:border-gray-700 cursor-pointer">
+              <p class="font-semibold">
+                Fecha de creación
+              </p>
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="#FFFFFF"
+                d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+            </div>
+
+            <div data-order="4" @click="sortType='Fecha de creación (desc)',openSort=!openSort"
+              x-show="sortType != 'Fecha de creación (desc)'"
+              class="order_opcion flex items-center justify-between rounded-lg p-2 hover:bg-gray-700 hover:border-gray-700 cursor-pointer">
+              <p class="font-semibold">
+                Fecha de creación
+              </p>
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="#FFFFFF"
+                  d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z" />
+              </svg>
+            </div>
+
+            <div data-order="5" @click="sortType='Calificación (asc)',openSort=!openSort"
+              x-show="sortType != 'Calificación (asc)'"
+              class="order_opcion flex items-center justify-between rounded-lg p-2 hover:bg-gray-700 hover:border-gray-700 cursor-pointer">
+              <p class="font-semibold">
+                Calificación
+              </p>
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="#FFFFFF"
+                d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+            </div>
+
+            <div data-order="6" @click="sortType='Calificación (desc)',openSort=!openSort"
+              x-show="sortType != 'Calificación (desc)'"
+              class="order_opcion flex items-center justify-between rounded-lg p-2 hover:bg-gray-700 hover:border-gray-700 cursor-pointer">
+              <p class="font-semibold">
+                Calificación
+              </p>
+              <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="#FFFFFF"
+                  d="M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -298,10 +402,6 @@
 
 <!--Rango de precios-->
 <script>
-  function getRangePrice() {
-    let slider = document.getElementById('slider');
-
-  }
   function getPrice() {
     let values = [];
 
@@ -316,8 +416,6 @@
 
   function range() {
     let range = getPrice();
-    //$('#fromInput').attr("step", Math.round((range[1])/10));
-    //$('#toInput').attr("step", Math.round((range[1])/10));
     return {
       minprice: range[0],
       maxprice: range[1],
@@ -339,11 +437,20 @@
   }
 </script>
 
-<!--Script para filtrar-->
+<!--Script para filtrar y ordenar-->
 <script>
   $(document).ready(function () {
+    let productos = [];
 
-    // Handle form submission
+    if ($('.one_category').length > 0) {
+      $('#product-id').each(function () {
+        productos.push(parseInt($(this).data("id")));
+      });
+    }
+    else {
+      productos.push(-1);
+    }
+
     $('#filtros').click(function (event) {
       event.preventDefault(); // Prevent form submission
 
@@ -372,39 +479,95 @@
           price.push(min);
           price.push(max);
         }
-        else{
+        else {
           let min = parseInt(value);
-          let max = parseInt($(this).data("key"));
-
+          let max = -1;
+          if($(this).data("key") != 'infinity'){
+            max = parseInt($(this).data("key"));
+          }
           price.push(min);
           price.push(max);
         }
       });
 
-      let category = $("#category").data("filter");
-      let subcategory = $("#subcategory").data("filter");
-      let tag = $("#tag").data("filter");
 
       $.ajax({
         type: "GET",
         url: "{% url 'filter-product' %}",
         data: {
+          'id': productos,
           'universidad': universidad,
           'domicilio': domicilio,
           'inventario': inventario,
-          'category': category,
-          'subcategory': subcategory,
-          'tag': tag,
           'price': price
         },
         dataType: 'json',
-        beforeSend: function () {
-          console.log(price);
-        },
         success: function (response) {
           $("#filtered-products").html(response.data);
         },
       });
     });
+
+    $('.order_opcion').click(function (event) {
+      let actual = parseInt($(this).data("order"));
+      let order = '';
+
+      if (actual == 1) {
+        order = 'precio';
+      }
+      else if (actual == 2) {
+        order = '-precio';
+      }
+      else if (actual == 3) {
+        order = 'created_at';
+      }
+      else if (actual == 4) {
+        order = '-created_at';
+      }
+      else if (actual == 5) {
+        order = 'reviews__promedio';
+      }
+      else if (actual == 6) {
+        order = '-reviews__promedio';
+      }
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'order-product' %}",
+        data: {
+          'id': productos,
+          'order': order,
+        },
+        dataType: 'json',
+        success: function (response) {
+          $("#filtered-products").html(response.data);
+        },
+      });
+    });
+
+    $('.tipoUniversity').click(function (event){
+      let universidad = [];
+      universidad.push($(this).data("university"));
+
+      let key = $(this).html().toString();
+
+      let checkbox = $(".filter-checkbox[data-filter='universidad'][data-key='" + key + "']");
+      
+      checkbox.prop('checked', true);
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'filter-product' %}",
+        data: {
+          'id': productos,
+          'universidad': universidad,
+        },
+        dataType: 'json',
+        success: function (response) {
+          $("#filtered-products").html(response.data);
+        },
+      });
+    });
+
   });
 </script>

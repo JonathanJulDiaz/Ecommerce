@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block content %}
-  <h1 id="category" data-filter={{ category.id }} class="text-2xl ml-3 mb-2"><b>Categoria:</b> {{ category.title }}</h1>
+<p class="ml-3 mb-2 text-gray-600 font-bold">
+  <a class="hover:text-gray-700 hover:underline active:text-gray-900" href="/">UniMarket</a>
+  /
+  {{ category.title }}
+</p>
+
+  <h1 class="one_category text-2xl ml-3 mb-2"><b>Categoria:</b> {{ category.title }}</h1>
 
   {% include 'core/filters.html' with request=request products=products universities=universities domicilio=domicilio inventario=inventario only%}
 

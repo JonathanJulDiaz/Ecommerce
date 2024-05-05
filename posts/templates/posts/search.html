@@ -1,20 +1,26 @@
 {% extends 'core/base.html' %}
 
 {% block title %}
-  Buscar {{ query }}
+  "{{ query }}"
 {% endblock %}
 
 {% block content %}
   <div class="ml-3">
-    <h1 class="text-xl">Resultados de busqueda para "{{ query }}":</h1>
+    <h1 class="one_category text-xl">
+      Resultados de busqueda para "{{ query }}":
+    </h1>
 
-  <h2 class="text-md text-gray-600">Hemos encontrado {{ products.count }} publicaciones</h2>
+    <h2 class="text-md text-gray-200">Hemos encontrado {{ products.count }} publicaciones</h2>
 
-  {% if products %}
-  <h2 class="text-xs font-bold text-gray-600"></h2>
-    {% include 'posts/partials/products.html' %}
-  {% else %}
-    <p class="text-lg"><b>No hay ningun producto o servicio relacionado con: {{ query }}</b></p>
-  {% endif %}
+    {% if products %}
+      {% include 'core/filters.html' with request=request products=products universities=universities domicilio=domicilio inventario=inventario only %}
+
+      <h2 class="text-xs font-bold text-gray-600"></h2>
+      {% include 'posts/partials/products.html' %}
+    {% else %}
+      <p class="text-lg">
+        <b>No hay ningun producto o servicio relacionado con: {{ query }}</b>
+      </p>
+    {% endif %}
   </div>
 {% endblock %}

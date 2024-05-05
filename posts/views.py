@@ -22,34 +22,43 @@ def search(request):
     query = request.GET.get('query','')
     products = Product.objects.filter(Q(titulo__icontains=query)|
                                       Q(descripcion__icontains=query), status=Product.ACTIVO)
+    universities = UserProfile._meta.get_field('universidad').choices
+    domicilio = Product._meta.get_field('domicilio').choices
+    inventario = Product._meta.get_field('inventario').choices
 
-    return render(request, 'posts/search.html', {'query':query, 'products':products})
+    context = {
+        'query':query,
+        'products':products,
+        'universities': universities,
+        'domicilio': domicilio,
+        'inventario': inventario,
+    }
 
-def filter_products(request):
-    university = request.GET.getlist('universidad[]')
-    domicilios = request.GET.getlist('domicilio[]')
-    inventarios = request.GET.getlist('inventario[]')
+    return render(request, 'posts/search.html', context)
 
-    category = request.GET.get('category')
-    subcategory = request.GET.get('subcategory')
-    tag = request.GET.get('tag')
-    precio = request.GET.getlist('price[]')
+def order_products(request):
+    products_ids = request.GET.getlist('id[]')
+
+    order = request.GET.get('order')
 
     products = Product.objects.filter(status=Product.ACTIVO)
 
-    if precio:
-        precio = [int(x) for x in precio]
+    if '-1' not in products_ids:
+        products = products.filter(id__in=products_ids)
 
-        maximo = max(precio)
-        minimo = min(precio)
+    products = products.order_by(order)
 
-        products = products.filter(precio__gte=minimo, precio__lte=maximo)
-    elif tag:
-        products = products.filter(tags__in=tag)
-    elif subcategory:
-        products = products.filter(subcategoria_id=subcategory)
-    elif category:
-        products = products.filter(categoria_id=category)
+    data = render_to_string("posts/partials/products.html", { 'products': products })
+    return JsonResponse({ "data": data })
+
+def filter_products(request):
+    products_ids = request.GET.getlist('id[]')
+    university = request.GET.getlist('universidad[]')
+    domicilios = request.GET.getlist('domicilio[]')
+    inventarios = request.GET.getlist('inventario[]')
+    precio = request.GET.getlist('price[]')
+
+    products = Product.objects.filter(status=Product.ACTIVO)
 
     # Filtrar por universidad
     if university:
@@ -65,6 +74,19 @@ def filter_products(request):
 
     if inventarios:
         products = products.filter(inventario__in=inventarios)
+    if precio:
+        if '-1' in precio:
+            products = products.filter(precio__gte=int(precio[0]))
+        else:
+            precio = [int(x) for x in precio]
+
+            maximo = max(precio)
+            minimo = min(precio)
+
+            products = products.filter(precio__gte=minimo, precio__lte=maximo)
+
+    if '-1' not in products_ids:
+        products = products.filter(id__in=products_ids)
 
     data = render_to_string("posts/partials/products.html", { 'products': products })
     return JsonResponse({ "data": data })

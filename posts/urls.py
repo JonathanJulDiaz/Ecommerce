@@ -14,6 +14,9 @@ urlpatterns = [
     #Filtrar
     path('filter-products/', views.filter_products, name="filter-product"),
 
+    #Ordenar
+    path('order-products/', views.order_products, name="order-product"),
+
     #Diferentes filtros
     path('<slug:slug>/', views.category_detail, name='category_detail'),
     path('<slug:category_slug>/<slug:slug>', views.subcategory_detail, name='subcategory_detail'),
