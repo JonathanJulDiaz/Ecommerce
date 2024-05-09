@@ -17,7 +17,7 @@
               </div>
   
               <div class="ml-3">
-                  <a class="text-gray-800 font-semibold hover:text-gray-900 active:text-gray-900" href="{% url 'profile' product.user.id %}">
+                  <a class="text-gray-800 font-semibold hover:text-gray-900 hover:underline active:text-gray-900" href="{% url 'profile' product.user.id %}">
                     {% firstof product.user.get_full_name product.user.username %}
                   </a>
                 <p class="text-gray-500 text-sm">Publicado hace {{ product.created_at|timesince }}</p>
@@ -76,11 +76,7 @@
                 </svg>
                 <p class="text-sm text-gray-500 select-none">
                   {% for review in product.reviews.all %}
-                    {% if review.comentarios > 100 %}
-                      100+
-                    {% else %}
-                      {{ review.comentarios }}
-                    {% endif %}
+                    {{ review.comentarios }}
                   {% endfor %}
                 </p>
               </div>
@@ -95,7 +91,7 @@
               </a>
   
             {% if request.user.is_authenticated %}
-            <form id="save_post"  action="{% url 'add_to_saved' product.id %}" method='POST'>
+            <form id="save_post" action="{% url 'add_to_saved' product.id %}" method='POST'>
                {% csrf_token %}
               <button title="Añadir a guardados" class="bg-gray-500 text-gray-400 hover:bg-gray-700 hover:text-gray-200 hover:scale-125 delay-50 duration-700 rounded-full w-10 h-10 p-0 border-0 inline-flex items-center justify-center" type='submit'>
                 <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512">

@@ -20,12 +20,23 @@ class UserProfile(models.Model):
     imagen = models.ImageField(upload_to='uploads/userprofile/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    posts = [] #new list variable to store the ids of posts
+    
     
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
         return self.user.username
+    
+    def save_post(self, post_id):
+        self.posts.append(post_id)
+    
+    def delete_post(self, post_id):
+        self.posts.remove(post_id)
+
+    def get_saved_post(self):
+        return self.posts
     
     def get_display_number(self):
         return "https://web.whatsapp.com/send/?phone=57"+self.numero+"/"

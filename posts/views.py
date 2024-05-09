@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.template import RequestContext
 
 from userprofile.models import UserProfile
 
@@ -48,7 +49,12 @@ def order_products(request):
 
     products = products.order_by(order)
 
-    data = render_to_string("posts/partials/products.html", { 'products': products })
+    context = {
+        'request': request,
+        'products': products
+    }
+
+    data = render_to_string("posts/partials/products.html", context)
     return JsonResponse({ "data": data })
 
 def filter_products(request):
@@ -99,7 +105,12 @@ def filter_products(request):
 
             products = products.filter(precio__gte=minimo, precio__lte=maximo)
 
-    data = render_to_string("posts/partials/products.html", { 'products': products })
+    context = {
+        'request': request,
+        'products': products
+    }
+
+    data = render_to_string("posts/partials/products.html", context)
     return JsonResponse({ "data": data })
 
 def tagged(request, slug):
