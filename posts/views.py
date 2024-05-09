@@ -52,13 +52,27 @@ def order_products(request):
     return JsonResponse({ "data": data })
 
 def filter_products(request):
-    products_ids = request.GET.getlist('id[]')
+    categorias = request.GET.get('categoria')
+    subcategoria = request.GET.get('subcategoria')
+    tags = request.GET.get('tag')
     university = request.GET.getlist('universidad[]')
     domicilios = request.GET.getlist('domicilio[]')
     inventarios = request.GET.getlist('inventario[]')
     precio = request.GET.getlist('price[]')
 
     products = Product.objects.filter(status=Product.ACTIVO)
+
+    # Productos por categoria
+    if categorias:
+        products = products.filter(categoria_id=categorias)
+    
+    # Productos por subcategoria
+    elif subcategoria:
+        products = products.filter(subcategoria_id=subcategoria)
+
+    # Productos por tag
+    elif tags:
+        products = products.filter(tagged_items__in=tags)
 
     # Filtrar por universidad
     if university:
@@ -84,9 +98,6 @@ def filter_products(request):
             minimo = min(precio)
 
             products = products.filter(precio__gte=minimo, precio__lte=maximo)
-
-    if '-1' not in products_ids:
-        products = products.filter(id__in=products_ids)
 
     data = render_to_string("posts/partials/products.html", { 'products': products })
     return JsonResponse({ "data": data })

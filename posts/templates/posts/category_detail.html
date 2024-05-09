@@ -11,7 +11,7 @@
   {{ category.title }}
 </p>
 
-  <h1 class="one_category text-2xl ml-3 mb-2"><b>Categoria:</b> {{ category.title }}</h1>
+  <h1 id="categorias" class="text-2xl ml-3 mb-2" data-group="{{ category.id }}"><b>Categoria:</b> {{ category.title }}</h1>
 
   {% include 'core/filters.html' with request=request products=products universities=universities domicilio=domicilio inventario=inventario only%}
 
