@@ -105,7 +105,7 @@
 
           <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
             <div class="flex items-center justify-center">
-              <form action="{% url 'product_detail' product.categoria.slug product.subcategoria.slug product.slug %}" method="GET">
+              <form action="{% url 'product-detail' product.categoria.slug product.subcategoria.slug product.slug %}" method="GET">
                 {% csrf_token %}
                 <button name="ver" id="{{ product.id }}" class="px-2 py-2 bg-blue-500 text-black rounded-lg hover:text-white hover:bg-blue-600 delay-50 duration-700 mr-1 flex" type='submit'>
                   <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">

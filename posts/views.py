@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.template import RequestContext
 
 from userprofile.models import UserProfile
 
@@ -12,8 +11,6 @@ from .models import Product, Category, Subcategory
 from reviews.models import Reseña, ReviewDetails
 
 from .forms import ReseñaForm
-
-from userprofile.saved import Saved
 
 from taggit.models import Tag
 
@@ -255,20 +252,22 @@ def add_review(request, product_id):
 
 @login_required(login_url='log-in')
 def add_to_saved(request, product_id):
-    saved = Saved(request)
-    saved.add(product_id)
+    user = UserProfile.objects.get(user=request.user)
 
-    return redirect('saved_view')
+    user.save_post(product_id)
+
+    return redirect('saved-view')
 
 @login_required(login_url='log-in')
 def remove_from_saved(request, product_id):
-    saved = Saved(request)
-    saved.remove(product_id)
+    user = UserProfile.objects.get(user=request.user)
 
-    return redirect('saved_view')
+    user.delete_post(product_id)
+
+    return redirect('saved-view')
 
 @login_required(login_url='log-in')
 def saved_view(request):
-    saved = Saved(request)
+    user = UserProfile.objects.get(user=request.user)
 
-    return render(request, 'posts/saved_view.html', { 'saved': saved })
+    return render(request, 'posts/saved_view.html', { 'saved': user.saved_posts })

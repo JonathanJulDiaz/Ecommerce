@@ -2,7 +2,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.db.models import Max, Min, Aggregate
 
 from posts.models import Product
 

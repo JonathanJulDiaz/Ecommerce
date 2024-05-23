@@ -44,12 +44,12 @@
           </div>
   
           {% if product.imagenes %}
-            <a class="overflow-hidden block transition duration-500 ease-out transform hover:scale-110" href="{% url 'product_detail' product.categoria.slug product.subcategoria.slug product.slug %}">
+            <a class="overflow-hidden block transition duration-500 ease-out transform hover:scale-110" href="{% url 'product-detail' product.categoria.slug product.subcategoria.slug product.slug %}">
                 <img class="w-full h-48 object-cover rounded-md mb-2" src="{{ product.imagenes.url }}" alt="Imagen de {{ product.titulo }}" />
             </a>
           {% endif %}
   
-          <a href="{% url 'product_detail' product.categoria.slug product.subcategoria.slug product.slug %}">
+          <a href="{% url 'product-detail' product.categoria.slug product.subcategoria.slug product.slug %}">
             <h2 class="text-xl hover:text-gray-700 hover:underline active:text-gray-900">
               {{ product.titulo }}
             </h2>
@@ -84,14 +84,14 @@
           </div>
   
           <div class="flex items-center justify-between mt-2">
-              <a href="{% url 'product_detail' product.categoria.slug product.subcategoria.slug product.slug %}">
+              <a href="{% url 'product-detail' product.categoria.slug product.subcategoria.slug product.slug %}">
                 <button title="Ver {{ product.titulo }}" class="px-2 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-800 delay-50 duration-700">
                   Ver publicación
                 </button>
               </a>
   
             {% if request.user.is_authenticated %}
-            <form id="save_post" action="{% url 'add_to_saved' product.id %}" method='POST'>
+            <form id="save_post" action="{% url 'add-to-saved' product.id %}" method='POST'>
                {% csrf_token %}
               <button title="Añadir a guardados" class="bg-gray-500 text-gray-400 hover:bg-gray-700 hover:text-gray-200 hover:scale-125 delay-50 duration-700 rounded-full w-10 h-10 p-0 border-0 inline-flex items-center justify-center" type='submit'>
                 <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512">

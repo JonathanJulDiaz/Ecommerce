@@ -26,6 +26,6 @@ urlpatterns = [
     path('my-posts/delete-product/<int:pk>/', views.delete_product, name='delete_product'),
 
     #Publicaciones de vendedores
-    path('vendors/<int:pk>/', views.vendor_detail, name='vendor_detail'),
+    path('vendors/<int:pk>/', views.vendor_detail, name='vendor-detail'),
     path('vendor-profile/<int:pk>/', views.vendor_profile, name='profile'),
 ]

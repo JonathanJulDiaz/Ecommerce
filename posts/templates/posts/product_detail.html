@@ -9,9 +9,9 @@
     <p class="mb-4 text-gray-600 font-bold">
       <a class="hover:text-gray-700 hover:underline active:text-gray-900" href="/">UniMarket</a>
       /
-      <a class="hover:text-gray-700 hover:underline active:text-gray-900" href="{% url 'category_detail' product.categoria.slug %}">{{ product.categoria }}</a>
+      <a class="hover:text-gray-700 hover:underline active:text-gray-900" href="{% url 'category-detail' product.categoria.slug %}">{{ product.categoria }}</a>
       /
-      <a class="hover:text-gray-700 hover:underline active:text-gray-900" href="{% url 'subcategory_detail' product.categoria.slug product.subcategoria.slug %}">{{ product.subcategoria }}</a>
+      <a class="hover:text-gray-700 hover:underline active:text-gray-900" href="{% url 'subcategory-detail' product.categoria.slug product.subcategoria.slug %}">{{ product.subcategoria }}</a>
       /
       {{ product.titulo }}
     </p>
@@ -24,7 +24,7 @@
       {% endif %}
 
       <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-        <h2 class="text-sm text-gray-500">Publicado hace {{ product.created_at|timesince }} por <a class="text-gray-700 hover:text-gray-900 hover:underline" href="{% url 'vendor_detail' product.user.id %}">{% firstof product.user.get_full_name product.user.username %}</a></h2>
+        <h2 class="text-sm text-gray-500">Publicado hace {{ product.created_at|timesince }} por <a class="text-gray-700 hover:text-gray-900 hover:underline" href="{% url 'vendor-detail' product.user.id %}">{% firstof product.user.get_full_name product.user.username %}</a></h2>
 
         <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ product.titulo }}</h1>
 
@@ -142,19 +142,19 @@
 
       <div class="tab-pane fade mx-2 mt-2" id="nav-related" role="tabpanel" aria-labelledby="nav-related-tab">
         <div class="flex items-center mt-1 mb-2">
-          <h2 class="text-md text-black mr-1">Publicaciones de <a class="font-bold hover:underline hover:text-black" href="{% url 'vendor_detail' product.user.id %}">{% firstof product.user.get_full_name product.user.username %}</a></h2>
+          <h2 class="text-md text-black mr-1">Publicaciones de <a class="font-bold hover:underline hover:text-black" href="{% url 'vendor-detail' product.user.id %}">{% firstof product.user.get_full_name product.user.username %}</a></h2>
         </div>
 
         {% include 'posts/partials/products.html' with request=request products=user_p %}
 
         <div class="flex items-center mt-2 mb-2">
-          <h2 class="text-md text-black mr-1">Publicaciones de la misma Categoria <a class="font-bold hover:underline hover:text-black" href="{% url 'category_detail' product.categoria.slug %}">({{ product.categoria.title }})</a></h2>
+          <h2 class="text-md text-black mr-1">Publicaciones de la misma Categoria <a class="font-bold hover:underline hover:text-black" href="{% url 'category-detail' product.categoria.slug %}">({{ product.categoria.title }})</a></h2>
         </div>
 
         {% include 'posts/partials/products.html' with request=request products=category_p %}
 
         <div class="flex items-center mt-2 mb-2">
-          <h2 class="text-md text-black mr-1">Publicaciones de la misma Subcategoria <a class="font-bold hover:underline hover:text-black" href="{% url 'subcategory_detail' product.categoria.slug product.subcategoria.slug %}">({{ product.subcategoria.title }})</a></h2> 
+          <h2 class="text-md text-black mr-1">Publicaciones de la misma Subcategoria <a class="font-bold hover:underline hover:text-black" href="{% url 'subcategory-detail' product.categoria.slug product.subcategoria.slug %}">({{ product.subcategoria.title }})</a></h2> 
         </div>
 
         {% include 'posts/partials/products.html' with request=request products=subcategory_p %}
